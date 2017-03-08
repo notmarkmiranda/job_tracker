@@ -7,9 +7,11 @@ class NewCompany extends Component {
 
   render() {
     return(
-      <form>
-        <input type="text" />
-      </form>
+      <div className="col-md-4">
+        <form>
+          <input type="text" className="form-control" />
+        </form>
+      </div>
     )
   }
 }
