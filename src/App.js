@@ -7,7 +7,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      companies: [{ 1234: 'a' }],
+      companies: [{ [Date.now().toString()]: 'The Flyfisher Group' }],
       newCompany: ''
     }
 
@@ -16,13 +16,14 @@ class App extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    let newCompanyForm = this.refs.newCompany
     let newState = this.state.companies
     newState.push({ [Date.now().toString()]: this.state.newCompany })
     this.setState({
       companies: newState,
       newCompany: ''
     })
-    
+    newCompanyForm.value = ""
   }
 
   handleChange = (event) => {
@@ -32,21 +33,38 @@ class App extends Component {
   }
 
   render() {
+    const companyName = this.state.newCompany
     return (
-      <div className="Application">
+      <div className="Application container">
         <header className="Application--header">
           <h2>Job Tracker</h2>
         </header>
-        <div className="col-md-4">
-          <form onSubmit={ this.handleSubmit } >
-            <label>Company Name</label>
-            <input
-              type="text"
-              placeholder="test"
-              className="form-control"
-              onChange={ this.handleChange }
-            />
-          </form>
+        <div className="row">
+          <div className="col-md-4">
+            <form>
+              <div className="form-group">
+                <label>Company Name</label>
+                <input
+                  type="text"
+                  placeholder="test"
+                  className="form-control"
+                  ref="newCompany"
+                  onChange={ this.handleChange }
+                />
+              </div>
+              <div className="form-group">
+                <button
+                  onClick={ this.handleSubmit }
+                  disabled={ !companyName }
+                  className="btn btn-primary"
+                  >Submit
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className="col-md-6">
+            test
+          </div>
         </div>
 
       </div>
