@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {
       companies: [{ id: Date.now().toString(), name: 'The Flyfisher Group' }],
       warning: false,
-      newCompany: ''
+      newCompany: '',
     }
 
   }
@@ -38,8 +38,6 @@ class App extends Component {
     let index = findIndex(this.state.companies, ['name', newCompany])
     this.checkOrSet(index, newCompany)
     this.setState({ newCompany: '' })
-    let newCompanyForm = this.refs.newCompany
-    newCompanyForm.value = ""
   }
 
   handleChange = (event) => {
@@ -49,7 +47,6 @@ class App extends Component {
   }
 
   render() {
-    const companyName = this.state.newCompany
     return (
       <div className="Application container">
         <header className="Application--header">
@@ -61,26 +58,11 @@ class App extends Component {
         }
         <div className="row">
           <div className="col-md-4">
-            <form>
-              <div className="form-group">
-                <label>Company Name</label>
-                <input
-                  type="text"
-                  placeholder="test"
-                  className="form-control"
-                  ref="newCompany"
-                  onChange={ this.handleChange }
-                />
-              </div>
-              <div className="form-group">
-                <button
-                  onClick={ this.handleSubmit }
-                  disabled={ !companyName }
-                  className="btn btn-primary"
-                  >Submit
-                </button>
-              </div>
-            </form>
+            <NewCompany
+              value={ this.state.newCompany }
+              handleChange={ this.handleChange }
+              handleSubmit={ this.handleSubmit }
+            />
           </div>
           <div className="col-md-6">
             test
