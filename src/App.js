@@ -1,26 +1,44 @@
 import React, { Component } from 'react'
-import { findIndex } from 'lodash'
 
-import { auth, database } from './firebase'
+// import { auth, database } from './firebase'
+import Header from './Header'
 import NewCompany from './NewCompany'
 import './App.css'
 
 class App extends Component {
   constructor() {
     super()
-
     this.state = {
-      companies: [{ id: Date.now().toString(), name: 'The Flyfisher Group' }],
+      companies: {
+        [Date.now().toString()]: {
+          name: 'The Flyfisher Group'
+        }
+      },
       warning: false,
       newCompany: '',
     }
-
   }
 
-  rejectOrSet = (index, newCompany) => {
-    if (index === -1) {
+  handleChange = (event) => {
+    this.setState({
+      newCompany: event.target.value
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    let newCompany = this.state.newCompany
+    let duplicate = false
+    Object.keys(this.state.companies).forEach((key) => {
+      if (this.state.companies[key].name.toLowerCase() === newCompany.toLowerCase()) { return duplicate = true }
+    })
+    this.rejectOrSet(duplicate, newCompany)
+  }
+
+  rejectOrSet = (duplicate, newCompany) => {
+    if (!duplicate) {
       let newState = this.state.companies
-      newState.push({ id: Date.now().toString(), name: this.state.newCompany })
+      newState[Date.now().toString()] = { name: newCompany}
       this.setState({
         warning: false,
         companies: newState,
@@ -30,42 +48,25 @@ class App extends Component {
         warning: true
       })
     }
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-    let newCompany = this.state.newCompany
-    let index = findIndex(this.state.companies, ['name', newCompany])
-    this.rejectOrSet(index, newCompany)
     this.setState({ newCompany: '' })
-  }
-
-  handleChange = (event) => {
-    this.setState({
-      newCompany: event.target.value
-    })
   }
 
   render() {
     return (
       <div className="Application container">
-        <header className="Application--header">
-          <h2>Job Tracker</h2>
-        </header>
+        <Header />
         {
           this.state.warning &&
           <div className="alert alert-danger" role="alert">DUPLICATE!</div>
         }
         <div className="row">
-          <div className="col-md-4">
-            <NewCompany
-              value={ this.state.newCompany }
-              handleChange={ this.handleChange }
-              handleSubmit={ this.handleSubmit }
-            />
-          </div>
+          <NewCompany
+            value={ this.state.newCompany }
+            handleChange={ this.handleChange }
+            handleSubmit={ this.handleSubmit }
+          />
           <div className="col-md-6">
-            test
+          test
           </div>
         </div>
 
