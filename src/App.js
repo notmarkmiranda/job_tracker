@@ -17,7 +17,7 @@ class App extends Component {
 
   }
 
-  checkOrSet = (index, newCompany) => {
+  rejectOrSet = (index, newCompany) => {
     if (index === -1) {
       let newState = this.state.companies
       newState.push({ id: Date.now().toString(), name: this.state.newCompany })
@@ -36,7 +36,7 @@ class App extends Component {
     event.preventDefault()
     let newCompany = this.state.newCompany
     let index = findIndex(this.state.companies, ['name', newCompany])
-    this.checkOrSet(index, newCompany)
+    this.rejectOrSet(index, newCompany)
     this.setState({ newCompany: '' })
   }
 
