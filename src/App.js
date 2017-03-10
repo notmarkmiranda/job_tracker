@@ -8,27 +8,35 @@ import './App.css'
 class App extends Component {
   constructor() {
     super()
+
     this.state = {
-      companies: [{ id: Date.now().toString(), name: 'YUP' }],
+      companies: [{ id: Date.now().toString(), name: 'The Flyfisher Group' }],
+      warning: false,
       newCompany: ''
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-    let newCompany = this.state.newCompany
-    let index = findIndex(this.state.companies, ['name', newCompany])
-
+  checkOrSet = (index, newCompany) => {
     if (index === -1) {
       let newState = this.state.companies
       newState.push({ id: Date.now().toString(), name: this.state.newCompany })
       this.setState({
+        warning: false,
         companies: newState,
       })
+    } else {
+      this.setState({
+        warning: true
+      })
     }
+  }
 
+  handleSubmit = (event) => {
+    event.preventDefault()
+    let newCompany = this.state.newCompany
+    let index = findIndex(this.state.companies, ['name', newCompany])
+    this.checkOrSet(index, newCompany)
     this.setState({ newCompany: '' })
     let newCompanyForm = this.refs.newCompany
     newCompanyForm.value = ""
@@ -47,6 +55,10 @@ class App extends Component {
         <header className="Application--header">
           <h2>Job Tracker</h2>
         </header>
+        {
+          this.state.warning &&
+          <div className="alert alert-danger" role="alert">DUPLICATE!</div>
+        }
         <div className="row">
           <div className="col-md-4">
             <form>
