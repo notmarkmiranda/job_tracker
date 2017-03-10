@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import { auth, database } from './firebase';
-import NewCompany from './NewCompany';
-import './App.css';
+import React, { Component } from 'react'
+import { findIndex } from 'lodash'
+
+import { auth, database } from './firebase'
+import NewCompany from './NewCompany'
+import './App.css'
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      companies: [{ [Date.now().toString()]: 'The Flyfisher Group' }],
+      companies: [{ id: Date.now().toString(), name: 'YUP' }],
       newCompany: ''
     }
 
@@ -16,13 +18,19 @@ class App extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    let newCompany = this.state.newCompany
+    let index = findIndex(this.state.companies, ['name', newCompany])
+
+    if (index === -1) {
+      let newState = this.state.companies
+      newState.push({ id: Date.now().toString(), name: this.state.newCompany })
+      this.setState({
+        companies: newState,
+      })
+    }
+
+    this.setState({ newCompany: '' })
     let newCompanyForm = this.refs.newCompany
-    let newState = this.state.companies
-    newState.push({ [Date.now().toString()]: this.state.newCompany })
-    this.setState({
-      companies: newState,
-      newCompany: ''
-    })
     newCompanyForm.value = ""
   }
 
