@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import map from 'lodash/map'
 
 // import { auth, database } from './firebase'
+import Companies from './Companies'
 import Header from './Header'
 import NewCompany from './NewCompany'
 import './App.css'
@@ -17,6 +18,7 @@ class App extends Component {
       },
       warning: false,
       newCompany: '',
+      user: true
     }
   }
 
@@ -53,33 +55,31 @@ class App extends Component {
   }
 
   render() {
-    const companies = this.state.companies
+    const { companies, user } = this.state
+
     return (
       <div className="Application container">
         <Header />
         <div className="row">
-          <NewCompany
-            value={ this.state.newCompany }
-            handleChange={ this.handleChange }
-            handleSubmit={ this.handleSubmit }
-          />
-          <div className="col-md-6">
+          <div className="col-md-4">
             {
-              map(companies, (company, key) => (
-                <div key={ key }>{ company.name }</div>
-              ))
-            }
-
-            {
-              this.state.warning &&
-              <div className="alert alert-danger" role="alert">DUPLICATE!</div>
+              user
+              ? <NewCompany
+                  value={ this.state.newCompany }
+                  handleChange={ this.handleChange }
+                  handleSubmit={ this.handleSubmit }
+                  warning={ this.state.warning }
+                />
+              : <div>NOPE</div>
             }
           </div>
+          <div className="col-md-6">
+            <Companies companies={ this.state.companies } />
+          </div>
         </div>
-
       </div>
     );
   }
 }
 
-export default App;
+export default App

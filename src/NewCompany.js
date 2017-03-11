@@ -4,7 +4,11 @@ class NewCompany extends Component {
   render(props) {
     const companyName = this.props.value
     return(
-      <div className="col-md-4">
+      <div>
+        {
+          this.props.warning &&
+          <div className="alert alert-danger" role="alert">THAT WAS A DUPLICATE!</div>
+        }
         <form>
           <div className="form-group">
             <label>Company Name</label>

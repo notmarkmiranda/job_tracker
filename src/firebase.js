@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 const config = {
+
   apiKey: 'AIzaSyA85Fz_dPxymJLfBS2VBe4ICvf-LyvTd3I',
   authDomain: 'job-tracker-13381.firebaseapp.com',
   databaseURL: 'https://job-tracker-13381.firebaseio.com',
