@@ -4,5 +4,6 @@
 - Iteration 0
   - Full CRUD for Companies, Jobs, and Comments
   - Connect to Firebase
+  - Authentication
 - Iteration 1
   - Implement Redux / Flux pattern
