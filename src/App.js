@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import map from 'lodash/map'
 
 // import { auth, database } from './firebase'
 import Header from './Header'
@@ -52,13 +53,10 @@ class App extends Component {
   }
 
   render() {
+    const companies = this.state.companies
     return (
       <div className="Application container">
         <Header />
-        {
-          this.state.warning &&
-          <div className="alert alert-danger" role="alert">DUPLICATE!</div>
-        }
         <div className="row">
           <NewCompany
             value={ this.state.newCompany }
@@ -66,7 +64,16 @@ class App extends Component {
             handleSubmit={ this.handleSubmit }
           />
           <div className="col-md-6">
-          test
+            {
+              map(companies, (company, key) => (
+                <div key={ key }>{ company.name }</div>
+              ))
+            }
+
+            {
+              this.state.warning &&
+              <div className="alert alert-danger" role="alert">DUPLICATE!</div>
+            }
           </div>
         </div>
 
