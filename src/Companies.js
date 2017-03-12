@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import map from 'lodash/map'
 
 class Companies extends Component {
-  constructor(props) {
-    super(props)
-  }
   render() {
     const { companies } = this.props
     return(
@@ -13,9 +10,11 @@ class Companies extends Component {
           <div className='panel-heading'>
             The Companies
           </div>
+          <ul className='list-group'>
           { map(companies, (company, key) => (
-            <div key={ key } className='panel-body'>{ company.name }</div>
+            <li key={ key } className='list-group-item'>{ company.name }</li>
           )) }
+          </ul>
         </div>
       </div>
     )

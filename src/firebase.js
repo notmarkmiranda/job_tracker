@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase'
 
 const config = {
 
@@ -7,12 +7,12 @@ const config = {
   databaseURL: 'https://job-tracker-13381.firebaseio.com',
   storageBucket: 'job-tracker-13381.appspot.com',
   messagingSenderId: '81725134456'
-};
+}
 
-firebase.initializeApp(config);
+firebase.initializeApp(config)
 
-export default firebase;
+export default firebase
 
-export const database = firebase.database();
-export const auth = firebase.auth();
-export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+export const database = firebase.database()
+export const auth = firebase.auth()
+export const googleAuthProvider = new firebase.auth.GoogleAuthProvider()

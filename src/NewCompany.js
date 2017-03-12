@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 
 class NewCompany extends Component {
   render(props) {
-    const companyName = this.props.value
+    const name = this.props.newCompany
     return(
       <div>
-        {
-          this.props.warning &&
-          <div className="alert alert-danger" role="alert">THAT WAS A DUPLICATE!</div>
-        }
         <form>
           <div className="form-group">
             <label>Company Name</label>
@@ -16,20 +12,23 @@ class NewCompany extends Component {
               type="text"
               placeholder="Name of a Company"
               className="form-control"
-              value={ this.props.value }
-              onChange={ this.props.handleChange }
-            />
+              value={ name }
+              onChange={ this.props.handleChange } />
           </div>
           <div className="form-group">
             <button
               onClick={ this.props.handleSubmit }
-              disabled={ !companyName }
+              disabled={ !name }
               className="btn btn-primary"
               >
               Submit
             </button>
           </div>
         </form>
+        {
+          this.props.warning &&
+          <div className="alert alert-danger" role="alert">THAT WAS A DUPLICATE!</div>
+        }
       </div>
     )
   }
