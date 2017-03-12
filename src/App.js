@@ -19,10 +19,12 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.companiesRef.orderByChild('name').on('value', this._listenForCompanyChanges)
+    // this.companiesRef.orderByChild('name').on('child_added', this._loadCompanies)
+    this.companiesRef.on('value', this._listenForCompanyChanges)
     auth.onAuthStateChanged((user) => {
       this.setState({ user })
     })
+
   }
 
   handleChange = (event) => {
@@ -44,6 +46,14 @@ class App extends Component {
 
   _listenForCompanyChanges = (snapshot) => {
     this.setState({ companies: snapshot.val() })
+  }
+
+  _loadCompanies = (snapshot) => {
+    console.log(snapshot.val())
+    let oldState = this.state.companies || {}
+    let nextCompany = { [snapshot.key]: snapshot.val() }
+    let companies = Object.assign(oldState, nextCompany)
+    this.setState({ companies })
   }
 
   _rejectOrSet = (duplicate, newCompany) => {
