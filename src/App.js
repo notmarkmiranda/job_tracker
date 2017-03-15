@@ -31,6 +31,10 @@ class App extends Component {
     this.setState({ newCompany: event.target.value })
   }
 
+  handleDelete = (event) => {
+    this.companiesRef.child(event.target.dataset.index).remove()
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
     let newCompany = this.state.newCompany
@@ -78,7 +82,11 @@ class App extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8">
-              <Companies companies={ companies } />
+              <Companies
+                companies={ companies }
+                handleDelete={ this.handleDelete }
+                user={ user }
+              />
             </div>
             <div className="col-md-4">
               {

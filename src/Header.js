@@ -7,7 +7,7 @@ const Header = (props) => (
   <Navbar collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>
-        <a>React-Bootstrap</a>
+        <a>Job Tracker</a>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
