@@ -7,7 +7,7 @@ class Companies extends Component {
     return(
       <div>
         <div className='list-group'>
-          <div className='list-group-item'>
+          <div className='list-group-item active'>
             <h4>The Companies</h4>
           </div>
           { map(companies, (company, key) => (
