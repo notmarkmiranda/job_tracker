@@ -22,7 +22,10 @@ class App extends Component {
     // this.companiesRef.orderByChild('name').on('child_added', this._loadCompanies)
     this.companiesRef.on('value', this._listenForCompanyChanges)
     auth.onAuthStateChanged((user) => {
-      this.setState({ user })
+      this.setState({
+        user,
+        warning: false
+      })
     })
 
   }
